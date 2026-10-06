@@ -1,49 +1,89 @@
-## Business Questions
-1. Which products are at risk of stockout?
-2. Which products are overstocked or slow-moving?
-3. Which products contribute the most to inventory value?
-4. Which products have the highest demand?
-5. How efficiently is inventory being utilized?
-6. Which suppliers have longer lead times?
-7. Which products may require replenishment?
-8. How does inventory performance change over time?
+
 
 # Inventory Optimization Dashboard
 
 ## Project Overview
 
-This project analyzes inventory, demand, product and supplier data
-to identify inventory risks and support better replenishment decisions.
+An inventory analytics project designed to evaluate inventory levels, product demand, inventory turnover, supplier lead times and reorder risk. The project uses Python for data cleaning and exploratory analysis, MySQL for business analysis and Power BI for interactive visualization.
 
-The dashboard will help identify:
+## Business Objectives
 
-- Stockout risk
-- Overstocked products
-- Slow-moving inventory
-- High-value inventory
-- Product demand patterns
-- Supplier and lead-time performance
-- Reorder requirements
+* Identify products with high inventory value and sales volume.
+* Monitor products that fall at or below their reorder points.
+* Compare inventory performance across warehouses and regions.
+* Evaluate supplier lead times and their relationship with reorder risk.
+* Assess demand forecast accuracy and inventory turnover.
 
-## Business Questions
+## Tools and Technologies
 
-1. Which products are at risk of stockout?
-2. Which products are overstocked or slow-moving?
-3. Which products contribute the most to inventory value?
-4. Which products have the highest demand?
-5. How efficiently is inventory being utilized?
-6. Which suppliers have longer lead times?
-7. Which products may require replenishment?
-8. How does inventory performance change over time?
+* **Python:** Pandas, NumPy, Matplotlib, Seaborn
+* **SQL:** MySQL
+* **Visualization:** Microsoft Power BI, DAX
+* **Development:** Jupyter Notebook, VS Code, Git, GitHub
 
-## Tools
+## Dataset
 
-- Power BI
-- Power Query
-- DAX
-- SQL
-- Excel/CSV
+The dataset contains daily supply-chain inventory records from 2024, including SKU, warehouse, supplier, region, units sold, inventory levels, unit costs, lead times, reorder points and demand forecasts.
 
-## Project Status
+The data was checked for duplicate records, missing values and invalid dates before analysis. Additional analytical fields were created, including inventory value, unit margin, demand variance and reorder risk.
 
-🚧 In Progress
+## Key Performance Indicators
+
+| KPI                                       |    Result |
+| ----------------------------------------- | --------: |
+| Total units sold                          | 1,829,979 |
+| Average inventory level                   |    471.52 |
+| Reorder-risk records                      |     5,041 |
+| Reorder-risk percentage                   |     5.52% |
+| Forecast Mean Absolute Error (MAE)        |      2.38 |
+| Weighted Absolute Percentage Error (WAPE) |    11.87% |
+
+**Note:** Total recorded inventory value across daily observations was 525,243,991.12. This is a cumulative sum of daily inventory-value observations, not a single point-in-time inventory balance.
+
+## Key Findings
+
+* SKU_38 had the highest cumulative recorded inventory value among SKUs.
+* SKU_18 recorded the highest total units sold.
+* SKU_20 and SKU_14 had the highest observed SKU-level reorder-risk percentages.
+* Reorder risk varied across warehouses and regions.
+* Supplier lead time showed a positive correlation with reorder risk in the exploratory analysis.
+* Forecast evaluation produced an MAE of 2.38 and WAPE of 11.87%.
+
+## Dashboard Preview
+
+![Inventory Optimization Dashboard](images/inventory_dashboard.png)
+
+The Power BI report includes KPI cards, SKU inventory-value and sales comparisons, monthly demand trends, warehouse reorder-risk analysis and supplier lead-time comparisons.
+
+## Project Structure
+
+```text
+Inventory_Optimization_Dashboard/
+├──.venv/
+├── data/
+│   ├── supply_chain_dataset1.csv
+│   └── inventory_cleaned.csv
+├── images/
+│   └── inventory_dashboard.png
+├── Notebooks/
+│   ├── 01_Data_Inspection.ipynb
+│   └──02_Exploratory_Data_Analysis.ipynb
+│   
+├── powerbi/
+│   └── Inventory_Optimization_Dashboard.pbix
+├── scripts/
+│   └── load_data_to_mysql.py
+├── sql/
+│   └── 01_inventory_analysis.sql
+└── README.md
+```
+
+## Limitations
+
+* The dataset's `Stockout_Flag` contains only zero values, so actual stockout events could not be evaluated using that field.
+* Reorder risk is defined as inventory level less than or equal to the reorder point.
+* Inventory-value totals across daily records should not be interpreted as a single-date inventory balance.
+
+## Conclusion
+
+This project demonstrates an end-to-end analytics workflow involving data preparation, exploratory analysis, SQL querying, KPI development and Power BI reporting to support inventory and supply-chain decisions.
